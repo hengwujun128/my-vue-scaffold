@@ -1,22 +1,19 @@
 <script setup lang="ts">
-  import HelloWorld from './components/HelloWorld.vue'
+  // import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
+  <router-view v-slot="{ Component }">
+    <Transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </Transition>
+  </router-view>
 
-  <HelloWorld msg="Vite + Vue" />
+  <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
 
 <style scoped>
-  .logo {
+  /* .logo {
     height: 6em;
     padding: 1.5em;
     will-change: filter;
@@ -27,5 +24,15 @@
   }
   .logo.vue:hover {
     filter: drop-shadow(0 0 2em #42b883aa);
+  } */
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.2s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-active {
+    opacity: 0;
   }
 </style>
