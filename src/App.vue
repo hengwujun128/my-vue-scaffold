@@ -3,6 +3,8 @@
 </script>
 
 <template>
+  <!-- 定义路由出口 -->
+  <!-- 在App.vue中定义的router-view，这是顶层的出口，渲染最高级路由匹配到的组件-->
   <router-view v-slot="{ Component }">
     <Transition name="fade" mode="out-in">
       <component :is="Component" />
