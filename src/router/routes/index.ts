@@ -1,30 +1,27 @@
-// 定义路由
-const routes = [
-  {
-    path: '/login',
-    component: () => import('@/pages/greeLogin.vue'), //路由懒加载
-  },
-  {
-    path: '/home',
-    component: () => import('@/pages/home/greeHome.vue'),
-    redirect: '/home/user', // 重定向
-    children: [
-      {
-        path: '/home/user',
-        component: () => import('@/pages/home/g-user.vue'),
-      },
-      {
-        path: '/home/manage',
-        component: () => import('@/pages/home/g-manage.vue'),
-      },
-    ],
-  },
+// import type { AppRouteModule } from '@/router/types.ts'
 
-  // 404 //添加（放在最后）
-  {
-    path: '/:pathMatch(.*)*',
-    component: () => import('@/pages/notFound.vue'),
-  },
-]
+// import.meta.glob() 直接引入所有的模块 Vite 独有的功能
+// import.meta.glob 使用别名
+const modules = import.meta.glob('./modules/**/*.ts', { eager: true })
 
-export default routes
+// 加入到路由集合中
+// Object.keys(modules).forEach((key) => {
+//   const mod = modules[key].default || {}
+//   const modList = Array.isArray(mod) ? [...mod] : [mod]
+//   routeModuleList.push(...modList)
+// })
+
+const routesProcessor = () => {
+  const routeModuleList: any[] = []
+
+  for (const path in modules) {
+    const mod = modules[path].default || {}
+    const modList = Array.isArray(mod) ? [...mod] : [mod]
+    routeModuleList.push(...modList)
+  }
+  return routeModuleList
+}
+
+const asyncRoutes = routesProcessor()
+
+export { asyncRoutes }
