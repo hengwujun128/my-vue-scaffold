@@ -22,11 +22,11 @@ a {
 a:hover {
   color: #535bf2;
 }
-
+/* have bad effect on message of ant-design-vue */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
