@@ -2,7 +2,7 @@
   <!-- :open="props.visible" @update:open="@emit('update:visible', $event.target.value)" -->
   <a-modal
     v-model:open="modalVisible"
-    title="上传中,请稍后..."
+    title="上传文件"
     :footer="null"
     :centered="true"
     :body-style="{ 'text-align': 'center' }"
@@ -15,6 +15,7 @@
       }"
       :percent="props.progress"
     />
+    <p class="desc">{{ props.title }}</p>
   </a-modal>
 </template>
 
@@ -30,10 +31,14 @@
       type: Number,
       default: 0,
     },
+    title: {
+      type: String,
+      default: '',
+    },
   })
   const emits = defineEmits(['update:visible', 'update:progress'])
 
-  // 使用计算属性,创建第三方变量
+  // use third party variable and computed property to achieve v-model
   const modalVisible = computed({
     get() {
       return props.visible
@@ -44,4 +49,8 @@
   })
 </script>
 
-<style scoped></style>
+<style scoped>
+  .desc {
+    margin-top: 16px;
+  }
+</style>
