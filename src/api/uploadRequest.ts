@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-// AxiosRequestConfig,
-// import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-
 /*
  * 创建实例
  * 与后端服务通信
@@ -17,8 +14,8 @@ const HttpClient = axios.create({
  */
 HttpClient.interceptors.request.use(
   (config) => {
-    // const token = '222'
-    // config.headers.authorization = 'Bearer ' + token
+    const token = '222'
+    config.headers.authorization = 'Bearer ' + token
     return config
   },
   (error) => {
@@ -32,13 +29,8 @@ HttpClient.interceptors.request.use(
  * 功能：处理异常
  */
 HttpClient.interceptors.response.use(
-  (res) => {
-    if (res.status === 200) {
-      return res.data
-    } else {
-      return Promise.reject(res)
-      // return false
-    }
+  (config) => {
+    return config
   },
   (error) => {
     return Promise.reject(error)

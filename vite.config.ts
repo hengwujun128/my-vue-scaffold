@@ -45,5 +45,31 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
         '#': path.resolve('./types'), // #代替types
       },
     },
+    // https://cn.vitejs.dev/config/shared-options.html#css-preprocessoroptions
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // 注入额外的 data,建议以变量为主
+          additionalData: '@import "@/assets/styles/index.scss";',
+        },
+      },
+    },
+
+    server: {
+      hmr: {
+        overlay: false,
+      },
+      proxy: {
+        '/dev': {
+          target: '//127.0.0.1:3000',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => {
+            console.log({ path })
+            return path.replace(/^\/dev/, '')
+          },
+        },
+      },
+    },
   }
 })

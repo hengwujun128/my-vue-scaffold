@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits, computed } from 'vue'
+  import { defineEmits, computed } from 'vue'
 
   const props = defineProps({
     visible: {

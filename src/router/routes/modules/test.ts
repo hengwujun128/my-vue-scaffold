@@ -8,13 +8,23 @@ const test = {
   meta: {},
   children: [
     {
-      path: 'index',
+      path: 'upload',
       name: 'UploadFile',
       component: () => import('@/pages/test/UploadFile.vue'),
       meta: {
         title: '上传文件',
         icon: '',
         hideMenu: true, // 当前路由不再菜单显示
+      },
+    },
+    {
+      path: 'loadMore',
+      name: 'LoadMore',
+      component: () => import('@/pages/test/loadMore/loadMore.vue'),
+      meta: {
+        title: 'loadMore',
+        icon: '',
+        hideMenu: true,
       },
     },
   ],
