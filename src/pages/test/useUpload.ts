@@ -32,7 +32,7 @@ export const uploadRecursively = (data, callback) => {
 }
 
 export const useUploadProcessor = () => {
-  const chunkSize = 10 * 1024 * 1024
+  const chunkSize = 2 * 1024 * 1024
   const chunks: Ref<any[]> = ref([])
   const chunksFormData: Ref<any[]> = ref([])
 
