@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off', //允许使用@ts-ignore
     '@typescript-eslint/no-non-null-assertion': 'off', //允许使用非空断言
     '@typescript-eslint/no-unused-vars': 'off', // ts 文件允许 console
+    '@typescript-eslint/no-var-requires': 'off',
     'no-console': [
       //提交时不允许有console.log
       'off',

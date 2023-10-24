@@ -13,6 +13,8 @@ import App from './App.vue'
 //
 import { setupRouter } from '@/router/index.ts'
 
+import { setupGlobDirectives } from '@/directives/index'
+
 async function bootstrap() {
   const app = createApp(App)
   app.use(Antd)
@@ -22,6 +24,7 @@ async function bootstrap() {
   // 路由守卫
   // setupRouterGuard(router)
 
+  setupGlobDirectives(app)
   app.mount('#app')
 }
 bootstrap()

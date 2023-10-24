@@ -9,6 +9,12 @@
 </template>
 
 <script setup lang="ts">
+  /**
+   * 主要是对 circle 进行 observe, circle 如果进入交互视野 isIntersecting,就调用loaderMethod
+   * observer 保存为计算属性
+   *
+   */
+
   import { ref, Ref, computed, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
 
   const loadMoreRef: Ref = ref(null)

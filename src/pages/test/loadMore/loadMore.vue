@@ -1,13 +1,14 @@
 <template>
   <div class="scrollLoader">
     <div class="images-wrapper">
-      <div v-for="image of images" :key="image.id" class="images-item">
+      <div v-for="(image, index) of images" :key="image.id" class="images-item">
         <div class="images-card">
-          <img class="images-card__image" :src="image.urls.small_s3" />
+          <!-- :src="image.urls.small_s3" -->
+          <img v-lazy="{ src: image.urls.small_s3, id: index }" class="images-card__image" />
         </div>
       </div>
     </div>
-    <LoadMore :loader-method="getCats" :loader-disable="disable"></LoadMore>
+    <LoadMore :loader-method="getCats" :loader-disable="disabledLoadMore"></LoadMore>
   </div>
 </template>
 
@@ -20,7 +21,7 @@
   import { getImages } from '@/api/modules/test.ts'
 
   const images: Ref = ref([])
-  const disable: Ref = ref(false)
+  const disabledLoadMore: Ref = ref(false)
 
   const pageNumber: Ref = ref(0)
   const pageSize: Ref = ref(12)
@@ -47,6 +48,7 @@
     })
     if (res.status == 200 && res.response) {
       images.value = [...images.value, ...res.response.results]
+      if (images.value.length > res.response.total) disabledLoadMore.value = true
     }
   }
 
