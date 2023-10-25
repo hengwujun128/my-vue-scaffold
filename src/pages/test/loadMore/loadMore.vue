@@ -24,7 +24,7 @@
   const disabledLoadMore: Ref = ref(false)
 
   const pageNumber: Ref = ref(0)
-  const pageSize: Ref = ref(10)
+  const pageSize: Ref = ref(30)
 
   // in the browser
   const Api = createApi({
@@ -94,7 +94,7 @@
     .images-card__image {
       width: 100%;
       height: 100%;
-      object-fit: cover; // contain
+      object-fit: contain; // contain | cover
     }
     .images-card__mask {
       position: absolute;
