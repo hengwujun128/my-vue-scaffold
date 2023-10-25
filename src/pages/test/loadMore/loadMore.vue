@@ -3,8 +3,8 @@
     <div class="images-wrapper">
       <div v-for="(image, index) of images" :key="image.id" class="images-item">
         <div class="images-card">
-          <!-- :src="image.urls.small_s3" -->
           <img v-lazy="{ src: image.urls.small_s3, id: index }" class="images-card__image" />
+          <!-- <img v-lazy="{ src: image.urls.small, id: index }" class="images-card__image" /> -->
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
   const disabledLoadMore: Ref = ref(false)
 
   const pageNumber: Ref = ref(0)
-  const pageSize: Ref = ref(12)
+  const pageSize: Ref = ref(10)
 
   // in the browser
   const Api = createApi({
@@ -37,6 +37,7 @@
   /**
    * @desc
    * {@link https://unsplash.com/}
+   * {@link https://unsplash.com/documentation}
    */
   const getCats = async () => {
     pageNumber.value++
@@ -67,34 +68,33 @@
 <style scoped lang="scss">
   .scrollLoader {
     .images-wrapper {
-      max-width: 1200px;
+      max-width: 1280px; // can removed here
       padding-bottom: 30px;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-evenly; // adverb 均等, 平均地；
-      flex-wrap: wrap;
+      display: grid;
+
+      grid-template-columns: repeat(3, minmax(min(200px, 100%), 1fr));
+      gap: 20px;
     }
 
     .images-item {
-      width: 30%;
-      padding: 1%;
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-name: fadeInUp;
     }
 
     .images-card {
       width: 100%;
-      height: 0;
-      padding-bottom: 70%;
-      position: relative;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
     }
 
     .images-card__image {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      vertical-align: middle;
+      object-fit: cover; // contain
     }
     .images-card__mask {
       position: absolute;
@@ -107,11 +107,7 @@
     }
 
     // 对每个 item 运用 animation
-    .images-item {
-      animation-duration: 1s;
-      animation-fill-mode: both;
-      animation-name: fadeInUp;
-    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
