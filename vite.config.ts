@@ -10,6 +10,7 @@ import type { UserConfig, ConfigEnv } from 'vite'
 import pkg from './package.json'
 
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx' // jsx,tsx 语法插件
 
 import UnoCSS from 'unocss/vite'
 
@@ -36,7 +37,13 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
       __APP_ENV__: JSON.stringify(env.APP_ENV),
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-    plugins: [vue(), UnoCSS()],
+    plugins: [
+      vue(),
+      vueJsx({
+        // options are passed on to @vue/babel-plugin-jsx
+      }),
+      UnoCSS(),
+    ],
 
     //这里进行配置别名
     resolve: {

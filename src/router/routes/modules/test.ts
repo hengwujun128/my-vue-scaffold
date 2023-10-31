@@ -27,6 +27,17 @@ const test = {
         hideMenu: true,
       },
     },
+    {
+      path: 'virtualList',
+      name: 'VirtualList',
+      // component: () => import('@/pages/test/list/VirtualList.vue'),
+      component: () => import('@/pages/test/list/test.vue'),
+      meta: {
+        title: 'virtualList',
+        icon: '',
+        hideMenu: true,
+      },
+    },
   ],
 }
 
