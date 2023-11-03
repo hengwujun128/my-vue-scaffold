@@ -30,10 +30,21 @@ const test = {
     {
       path: 'virtualList',
       name: 'VirtualList',
-      // component: () => import('@/pages/test/list/VirtualList.vue'),
-      component: () => import('@/pages/test/list/test.vue'),
+      component: () => import('@/pages/test/list/VirtualList.vue'),
+      // component: () => import('@/pages/test/list/test.vue'),
       meta: {
         title: 'virtualList',
+        icon: '',
+        hideMenu: true,
+      },
+    },
+    {
+      path: 'scrollList',
+      name: 'ScrollList',
+      component: () => import('@/pages/test/scroll/Index.vue'),
+      // component: () => import('@/pages/test/list/test.vue'),
+      meta: {
+        title: 'scrollList',
         icon: '',
         hideMenu: true,
       },

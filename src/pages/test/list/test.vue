@@ -44,6 +44,7 @@
           <span>{content.slice(searchIndex)}</span>
         </>
       )
+
       return () => {
         if (searchIndex > CONTENT_CUT_LENGTH) return extraContent(index - 4)
         return extraContent(0)

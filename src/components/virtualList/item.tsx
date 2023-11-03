@@ -62,7 +62,7 @@ export const Item = defineComponent({
       // 在 render 函数中返回 tsx
       // 如何在 render函数中 tsx 中使用作用越插槽: scopedSlots
       return (
-        <Tag key={uniqueKey} ref={rootRef}>
+        <Tag key={uniqueKey} ref={rootRef} data-index={index}>
           <Comp {...mergedProps} scopedSlots={scopedSlots} />
         </Tag>
       )

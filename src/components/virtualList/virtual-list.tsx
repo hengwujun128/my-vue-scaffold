@@ -126,15 +126,17 @@ export default defineComponent({
       if (virtual.isFront() && !!props.dataSources.length && offset - props.topThreshold <= 0) {
         emit('totop')
       } else if (virtual.isBehind() && offset + clientSize + props.bottomThreshold >= scrollSize) {
+        //
         emit('tobottom')
       }
     }
 
-    // 滚动事件处理程序; container 上添加
+    // 滚动事件处理程序; container 滚动时候要处理的事情: clientHeight,scrollTop,scrollHeight 三者联系
     const onScroll = (evt) => {
-      const offset = getOffset() // 获取容器滚动条位置
-      const clientSize = getClientSize() // 获取容器自身大小
-      const scrollSize = getScrollSize() // 获取容器内容的大小
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight
+      const offset = getOffset() // 获取容器内部滚动条位置 : scrollTop
+      const clientSize = getClientSize() // 获取容器自身大小 :clientHeight, 只包括 padding 以内的
+      const scrollSize = getScrollSize() // 获取容器内容的大小:scrollHeight
 
       // iOS scroll-spring-back behavior will make direction mistake
       // 是否 完全滚动 (Determine if an element has been totally scrolled)
@@ -247,6 +249,7 @@ export default defineComponent({
     }
 
     // event called when each item mounted or size changed
+    // collect every item size when mounted or changed
     const onItemResized = (id: string, size: number) => {
       virtual.saveSize(id, size)
       emit('resized', id, size)
@@ -373,8 +376,10 @@ export default defineComponent({
       //TIPS: TS中的感叹号和问号的用法;1. 用在变量前取反,2.用在赋值的内容后,是 null,undefined 类型可以赋值给其他类型并通过编译
 
       const { padFront, padBehind } = range.value!
+
       const paddingStyle = {
         padding: isHorizontal ? `0px ${padBehind}px 0px ${padFront}px` : `${padFront}px 0px ${padBehind}px`,
+        // Transform: `translateY(${padFront}px)`,
       }
       // 设置 wrapperStyle
       const wrapperStyle = wrapStyle ? Object.assign({}, wrapStyle, paddingStyle) : paddingStyle
@@ -382,7 +387,7 @@ export default defineComponent({
       const { header, footer } = slots
       // 返回 tsx
       return (
-        // tsx 根节点,并添加onScroll 事件
+        // tsx 根节点,并添加onScroll 事件监听, 在tsx 中渲染 slots, 具名 slots; 把 slots 渲染到Slots 组件中
         <RootTag ref={root} onScroll={!pageMode && onScroll}>
           {/* header slot: 先判断是否有设置 header ,如果有 */}
           {/*  TIPS: Slot 组件中 添加默认插槽 ,vue3 中tsx 插槽是个函数 */}

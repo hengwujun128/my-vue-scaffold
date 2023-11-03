@@ -1,8 +1,10 @@
 <template>
-  <div class="images-item">
-    <div class="images-card">
-      <img v-lazy="{ src: props.source.urls.small_s3, id: props.index }" class="images-card__image" />
+  <div class="item-inner">
+    <div class="head">
+      <span class="index"># {{ props.index }}- {{ source.id }}</span>
+      <span class="name">{{ source.user.name }}</span>
     </div>
+    <div class="desc">{{ source.alt_description }}</div>
   </div>
 </template>
 
@@ -23,37 +25,23 @@
 </script>
 
 <style lang="scss" scoped>
-  .images-item {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-name: fadeInUp;
-    margin-bottom: 10px;
-  }
-  .images-card {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .images-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; // contain | cover
-  }
-
-  // 对每个 item 运用 animation
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(10%) scale(0.6);
+  .item-inner {
+    height: 100px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    .head {
+      font-weight: 500;
+      text-align: left;
     }
-
-    to {
-      opacity: 1;
-      transform: translateY(0%) scale(1);
+    .index {
+      margin-right: 1em;
+    }
+    .name {
+      margin-left: 1em;
+    }
+    .desc {
+      padding-top: 0.5em;
+      text-align: justify;
     }
   }
 </style>

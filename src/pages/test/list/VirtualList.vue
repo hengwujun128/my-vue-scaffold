@@ -1,13 +1,13 @@
 <template>
   <div class="scrollLoader">
+    <!--   @tobottom="getCats" -->
     <VirtualList
-      style="height: 600px; overflow-y: auto"
       class="list-infinite scroll-touch"
       :data-key="'id'"
       :data-sources="images"
       :data-component="Item"
-      @totop="onScrollToTop"
       @tobottom="getCats"
+      @totop="onScrollToTop"
     >
       <template #footer>
         <div class="loader"></div>
@@ -35,6 +35,8 @@
   const pageNumber: Ref = ref(0)
   const pageSize: Ref = ref(30)
 
+  const loading: Ref = ref(false)
+
   // in the browser
   const Api = createApi({
     accessKey: 'R8u67PrD85zedWNl3SK82Na8FXoaMOqHHNnYT36sWnw',
@@ -49,6 +51,11 @@
    * {@link https://unsplash.com/documentation}
    */
   const getCats = async () => {
+    if (loading.value) {
+      return
+    }
+    loading.value = true
+
     pageNumber.value++
     const res = await Api.search.getPhotos({
       query: 'cat',
@@ -58,7 +65,11 @@
     })
     if (res.status == 200 && res.response) {
       images.value = [...images.value, ...res.response.results]
-      if (images.value.length > res.response.total) disabledLoadMore.value = true
+      loading.value = false
+
+      // if (images.value.length > res.response.total) {
+      //   console.log('---')
+      // }
     }
   }
 
@@ -82,29 +93,15 @@
 
 <style scoped lang="scss">
   .list-infinite {
-    width: 100%;
+    width: 960px;
     height: 500px;
+    margin: 0 auto;
     border: 2px solid;
+    padding: 10px;
     border-radius: 3px;
     overflow-y: auto;
     border-color: dimgray;
     position: relative;
-    :deep(.wrap) {
-      max-width: 1280px; // can removed here
-      padding-bottom: 30px;
-      margin: 0 auto;
-      display: grid;
-
-      grid-template-columns: repeat(3, minmax(min(200px, 100%), 1fr));
-      gap: 20px;
-    }
-    .list-item-infinite {
-      display: flex;
-      align-items: center;
-      padding: 1em;
-      border-bottom: 1px solid;
-      border-color: lightgray;
-    }
 
     .loader-wrapper {
       padding: 1em;
