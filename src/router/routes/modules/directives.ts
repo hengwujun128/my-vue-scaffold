@@ -1,18 +1,34 @@
 // import type { AppRouteModule } from '@/router/types'
+import GreeHome from '@/pages/home/greeHome.vue'
 
 const test = {
   path: '/directives',
   name: 'Directives',
-  component: '',
+  // component: GreeHome,
+  component: GreeHome,
   redirect: '/directives/lazy',
   meta: {},
   children: [
     {
       path: 'lazy',
       name: 'Lazy',
-      component: () => import('@/pages/directives/MyLazy.tsx'),
+      // tsx component will have problem
+      component: () => import('@/pages/directives/MyLazy'),
+
       meta: {
         title: 'my lazy',
+        icon: '',
+        hideMenu: true,
+      },
+    },
+    {
+      path: 'auth',
+      name: 'Auth',
+      // tsx component will have problem
+      component: () => import('@/pages/directives/MyAuth.vue'),
+
+      meta: {
+        title: 'my Auth',
         icon: '',
         hideMenu: true,
       },

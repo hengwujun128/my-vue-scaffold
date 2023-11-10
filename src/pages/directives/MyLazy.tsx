@@ -39,15 +39,23 @@ export default defineComponent({
         if (images.value.length > res.response.total) disabledLoadMore.value = true
       }
     }
+    const lifeCycle = async () => {
+      // onBeforeMount(async () => {
+      //   await getCats()
+      // })
+    }
 
     /* ---------------------------------- hooks --------------------------------- */
 
     /* -------------------------- export public methods ------------------------- */
     expose({ getCats })
+    /* ----------------------------- render function ---------------------------- */
     return () => {
+      lifeCycle()
+
       return (
         <>
-          <div>
+          <div class="wrapper">
             {images.value.map((item: { id: number; urls: { small_s3: any } }, index: any) => {
               return (
                 <div class={'images-item'} key={item.id}>
@@ -58,7 +66,7 @@ export default defineComponent({
                 </div>
               )
             })}
-            {/*  loadMore */}
+            {/*  how to write class achievements in tsx? */}
             <LoadMore loaderMethod={getCats} loaderDisable={disabledLoadMore.value}></LoadMore>
           </div>
         </>

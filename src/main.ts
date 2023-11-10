@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
 
+import 'reset-css'
 // main.ts
 import 'virtual:uno.css'
 
 import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/reset.css'
+// why?
+// import 'ant-design-vue/dist/reset.css'
 
 // have effect to ant-design-vue
 import './style.css'
