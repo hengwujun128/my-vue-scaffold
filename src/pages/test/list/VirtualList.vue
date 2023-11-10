@@ -6,6 +6,7 @@
       :data-key="'id'"
       :data-sources="images"
       :data-component="Item"
+      item-class="itemClass"
       @tobottom="getCats"
       @totop="onScrollToTop"
     >
@@ -97,7 +98,7 @@
     height: 500px;
     margin: 0 auto;
     border: 2px solid;
-    padding: 10px;
+    // padding: 10px;
     border-radius: 3px;
     overflow-y: auto;
     border-color: dimgray;
@@ -157,6 +158,12 @@
       100% {
         transform: rotate(360deg);
       }
+    }
+
+    :deep(.itemClass) {
+      // height: 100px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
     }
   }
 </style>

@@ -60,6 +60,7 @@ export default defineComponent({
     watch(
       () => props.keeps,
       (newValue) => {
+        console.log('props.keeps发生变化', newValue)
         virtual.updateParam('keeps', newValue)
         virtual.handleSlotSizeChange()
       },

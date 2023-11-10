@@ -1,6 +1,7 @@
 /**
  * virtual list core calculating center
  * 中心思想: virtual list 是根据 索引去找数据, 根据 scrollbar 滚动的距离, 计算出来对应的数据源的索引, 开始索引, 结束索引
+ * 容器元素: container.clientHeight + container.scrollTop = container.height
  *
  * 如何根据索引获取索引对应的offset? 即每条item 数据, 都有自己的索引, 也都有自己的在offset
  * 如果 item 高度固定, 就直接简单得获取 对应的 offset : itemSize * index
@@ -13,8 +14,14 @@
  * 根据 keeps的长度 计算出 theoryEnd 索引  theoryEnd = start+ keeps -1 (因为长度是 30, 所以,索引要-1)
  * realEnd  = Math.min(theoryEnd, this.getLastIndex()) 29
  * checkRange(): 触发三个时机: 初始化, 向前滚动,向后滚动,且滚动位置超过range 的三分之一处开始
+ * 理论上:paddingFront + paddingBack  = sizes - keeps, 就是说 container 的 padding-top 和 padding-bottom 之和
+ * 应该等于 总数据长度 - range; padding-top: 依赖于this.range.start ; padding-bottom: 可以利用这个公式直接求出;
+ * 源码中 使用 (lastIndex - end) * this.fixedSizeValue 也是可以的
  *
- *
+ * 滚动过程中的逻辑:
+ * 1. scrollTop
+ * 2. 判断滚动方向
+ * 3.
  *
  */
 // @ts-nocheck
@@ -55,7 +62,7 @@ export default class Virtual {
     // range data
     this.range = Object.create(null)
     if (param) {
-      // 初始化时候,也要进行 checkRange
+      // 初始化时候,也要进行 checkRange,start default value is 0
       this.checkRange(0, param.keeps - 1)
     }
 
@@ -145,9 +152,10 @@ export default class Virtual {
     } else if (this.isBehind()) {
       start = start + LEADING_BUFFER
     }
-
+    console.log('---数据发生了变动----', { start: start, rangeStart: this.range.start })
     start = Math.max(start, 0)
-    // 基于 start 更新this.range.start
+    // 此时,this.range.start 还是range 第一个索引, 但是start 加了 buffer:2
+    // 获取 getEndByStart, 也是在加了 buffer 基础上+30
     this.updateRange(this.range.start, this.getEndByStart(start))
   }
 
@@ -180,13 +188,13 @@ export default class Virtual {
   handleFront() {
     const overs = this.getScrollOvers() // overs 的索引值
     // should not change range if start doesn't exceed overs
-    // NOTE:如果 overs 存在 这个 range 中,还没有超过 range.start 范围,如[5,55],什么都不做
-    console.log('向上滚动', { overs, range: this.range, buffer: this.param.buffer })
 
+    console.log('向上滚动', { overs, range: this.range, buffer: this.param.buffer })
+    // NOTE: 向上滚动时候,viewport 第一个元素 overs 大于 this.range.start,说明在这个 range 中是安全的,什么都不用做
     if (overs > this.range.start) {
       return
     }
-    //NOTE: 如果向前滚动时候,滚动条超过了 range.start,exceeds [5,55], 要重新设置 range.start
+    //NOTE: 如果向前滚动时候,视口第一个元素(scrollbar 滚动的位置所在的索引),小于range.start,说明不在 range 中,要调整 range
     // move up start by a buffer length, and make sure its safety
     const start = Math.max(overs - this.param.buffer, 0) // start = overs - buffer
     this.checkRange(start, this.getEndByStart(start))
@@ -196,7 +204,7 @@ export default class Virtual {
   // 只有滚动过的索引 超过缓冲区,才进行 checkRange,否则就不处理
   handleBehind() {
     const overs = this.getScrollOvers()
-    console.log('向下滚动', { overs, range: this.range, buffer: this.param.buffer })
+    console.log('向下滚动', { overs, range: { ...this.range }, buffer: this.param.buffer })
     // range should not change if scroll overs within buffer
     // 滚动条的位置索引, 在缓冲区中,不处理
     if (overs < this.range.start + this.param.buffer) {
@@ -282,7 +290,7 @@ export default class Virtual {
   checkRange(start, end) {
     const keeps = this.param.keeps // 视口默认展示 30 条数据,就是 默认渲染 30 条 dom 节点
     const total = this.param.uniqueIds.length // 总数据条数
-    console.log('---checkRange---', { start, end, keeps, total, range: this.range })
+    console.log('---checkRange---', { start, end, keeps, total, range: { ...this.range } })
 
     // data less than keeps, render all
     if (total <= keeps) {
@@ -309,7 +317,7 @@ export default class Virtual {
     this.range.start = start
     this.range.end = end
     // paddingTop of container based on start
-    this.range.padFront = this.getPadFront()
+    this.range.padFront = this.getPadFront() // 依赖 this.range.start 索引
     // paddingBottom of container based on end
     this.range.padBehind = this.getPadBehind()
     // 获取新的 range,包括两个缓冲区

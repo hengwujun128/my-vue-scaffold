@@ -4,7 +4,10 @@
       <span class="index"># {{ props.index }}- {{ source.id }}</span>
       <span class="name">{{ source.user.name }}</span>
     </div>
-    <div class="desc">{{ source.alt_description }}</div>
+    <div class="desc">
+      <p>{{ source.tags[0].source?.description }}</p>
+      {{ source.alt_description }}
+    </div>
   </div>
 </template>
 
@@ -26,9 +29,6 @@
 
 <style lang="scss" scoped>
   .item-inner {
-    height: 100px;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
     .head {
       font-weight: 500;
       text-align: left;
