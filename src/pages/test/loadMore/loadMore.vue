@@ -18,7 +18,7 @@
   import { createApi } from 'unsplash-js'
 
   import LoadMore from '@/components/LoadMore.vue'
-  import { getImages } from '@/api/modules/test.ts'
+  import { getImages } from '@/api/modules/test.js'
 
   const images: Ref = ref([])
   const disabledLoadMore: Ref = ref(false)

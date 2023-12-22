@@ -4,7 +4,7 @@ import request from '@/api/request'
  * {@link <https://dog.ceo/dog-api/documentation/random>}
  * {@link <https://docs.waifu.im/reference/api-reference/search>}
  */
-export const getImages = (): Promise<any> => {
+export const getImages = () => {
   const apiUrl = '/search'
   const params = {
     included_tags: 'maid', //maid
@@ -19,5 +19,3 @@ export const getImages = (): Promise<any> => {
 
   return request.get(requestUrl)
 }
-
-export const searchCats = (): Promise<any> => {}

@@ -1,5 +1,5 @@
 module.exports = {
-  // root: true,
+  root: true,
   env: {
     browser: true,
     node: true,
@@ -11,16 +11,17 @@ module.exports = {
     ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
+    jsxPragma: 'React',
     ecmaFeatures: {
       jsx: true,
     },
   },
   extends: [
-    'eslint:recommended',
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
+    // 'eslint:recommended',
     'plugin:prettier/recommended',
-    'eslint-config-prettier',
+    // 'eslint-config-prettier',
   ],
   // TIPS:
   plugins: ['vue', '@typescript-eslint', 'prettier'],
@@ -38,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off', //允许使用非空断言
     '@typescript-eslint/no-unused-vars': 'off', // ts 文件允许 console
     '@typescript-eslint/no-var-requires': 'off',
+
     'no-console': [
       //提交时不允许有console.log
       'off',
@@ -45,6 +47,6 @@ module.exports = {
         allow: ['warn', 'error'],
       },
     ],
-    'no-debugger': 'warn', //提交时不允许有debugger
+    'no-debugger': 'warn', //提交时不允许有debugger,
   },
 }

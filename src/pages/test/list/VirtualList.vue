@@ -28,7 +28,7 @@
 
   import Item from './Item.vue'
 
-  import { getImages } from '@/api/modules/test.ts'
+  import { getImages } from '@/api/modules/test'
 
   const images: Ref = ref([])
   const disabledLoadMore: Ref = ref(false)

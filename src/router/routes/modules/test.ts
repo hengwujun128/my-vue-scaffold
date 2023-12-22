@@ -8,6 +8,16 @@ const test = {
   meta: {},
   children: [
     {
+      path: 'index',
+      name: 'map',
+      component: () => import('@/pages/test/map/Tecent.vue'),
+      meta: {
+        title: 'TecentMap',
+        icon: '',
+        hideMenu: true, // 当前路由不再菜单显示
+      },
+    },
+    {
       path: 'upload',
       name: 'UploadFile',
       component: () => import('@/pages/test/UploadFile.vue'),

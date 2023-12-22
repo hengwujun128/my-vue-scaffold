@@ -1,7 +1,7 @@
 // import type { AppRouteModule } from '@/router/types'
 import GreeHome from '@/pages/home/greeHome.vue'
 
-const test = {
+const directives = {
   path: '/directives',
   name: 'Directives',
   // component: GreeHome,
@@ -36,4 +36,4 @@ const test = {
   ],
 }
 
-export default test
+export default directives

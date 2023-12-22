@@ -7,14 +7,7 @@
     </slot>
   </div>
 </template>
-
 <script setup lang="ts">
-  /**
-   * 主要是对 circle 进行 observe, circle 如果进入交互视野 isIntersecting,就调用loaderMethod
-   * observer 保存为计算属性
-   *
-   */
-
   import { ref, Ref, computed, onMounted, onActivated, onDeactivated, onBeforeUnmount } from 'vue'
 
   const loadMoreRef: Ref = ref(null)
@@ -46,7 +39,7 @@
     },
     /* relative viewport element,default top-level document viewport. */
     loaderViewport: {
-      type: Element,
+      type: HTMLElement,
       default: null,
     },
   })
@@ -68,6 +61,7 @@
     return {
       root: props.loaderViewport,
       rootMargin: `0px 0px ${props.loaderDistance}px 0px`,
+      threshold: [1],
     }
   })
 
@@ -97,12 +91,12 @@
   //
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .loader {
     display: flex;
     align-items: center;
     justify-content: center;
-    // padding: 30px 0;
+    padding: 0;
     &__svg {
       transform-origin: center;
       animation: rotate 2s linear infinite;

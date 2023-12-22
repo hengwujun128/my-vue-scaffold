@@ -29,6 +29,9 @@
 
   import uploadProgress from './uploadProgress.vue'
 
+  import Icon from '@/assets/vue.svg?raw'
+  console.log('----', Icon)
+
   const handleChange = () => {}
   const visible: Ref<boolean> = ref(false)
 

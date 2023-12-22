@@ -5,10 +5,6 @@
   "singleQuote": true,
   "trailingComma": "all",
   "proseWrap": "never",
-  "htmlWhitespaceSensitivity":"strict",
+  "htmlWhitespaceSensitivity": "strict",
   "endOfLine": "auto"
 }
-
-
-
-

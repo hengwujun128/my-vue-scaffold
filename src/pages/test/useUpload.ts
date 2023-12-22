@@ -19,13 +19,13 @@ export const uploadRecursively = (data, callback) => {
   }
   const currentRequest = data.shift()
   currentRequest
-    .then((res) => {
+    .then((res: any) => {
       if (res.status === 200) {
         console.log(res.message)
         uploadRecursively(data, callback)
       }
     })
-    .catch((err) => {
+    .catch((err: any) => {
       console.log(err)
     })
     .finally(() => {})

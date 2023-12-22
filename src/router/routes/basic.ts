@@ -2,7 +2,7 @@
 const routes = [
   {
     path: '/login',
-    component: () => import('@/pages/greeLogin.vue'), //路由懒加载
+    component: () => import('@/pages/greeLogin.vue'),
   },
   {
     path: '/home',
