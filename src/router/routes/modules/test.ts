@@ -4,7 +4,7 @@ const test = {
   path: '/test',
   name: 'Test',
   component: '',
-  redirect: '/test/index',
+  redirect: '/test/upload',
   meta: {},
   children: [
     {

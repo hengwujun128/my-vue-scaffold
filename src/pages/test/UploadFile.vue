@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="file">
     <a-upload
       v-model:file-list="fileList"
       name="file"
@@ -12,6 +12,9 @@
         Click to Upload
       </a-button>
     </a-upload>
+
+    <!-- downloads -->
+    <a-button type="dashed" class="download" @click="downloadHandler">Downloads</a-button>
     <uploadProgress
       v-model:progress="uploadedPercentage"
       v-model:visible="visible"
@@ -26,6 +29,7 @@
   import { UploadOutlined } from '@ant-design/icons-vue'
 
   import { useUploadProcessor } from './useUpload.js'
+  import useDownloadService from './useDownload'
 
   import uploadProgress from './uploadProgress.vue'
 
@@ -38,16 +42,33 @@
   const fileList = ref([])
 
   const { uploadHandler, uploadedPercentage, uploadedStatus, uploadedStatusMap } = useUploadProcessor()
+  const { downloadByStream } = useDownloadService()
 
   const customUploadHandler = (e: any) => {
     console.log('-------customUploadHandler-------', e)
     visible.value = true
     uploadHandler(e)
   }
+
+  const downloadHandler = (e: Event) => {
+    console.log('-------downloadHandler-------', e)
+    // window.open('http://localhost:3000/downloads/sampleDownload')
+    downloadByStream().then((res) => {
+      console.log('-------downloadHandler-------', res)
+    })
+  }
 </script>
 
-<style scoped>
-  ._message_ {
-    left: 0;
+<style scoped lang="scss">
+  .file {
+    margin: 10px;
+
+    ._message_ {
+      left: 0;
+    }
+
+    .download {
+      margin-left: 10px;
+    }
   }
 </style>

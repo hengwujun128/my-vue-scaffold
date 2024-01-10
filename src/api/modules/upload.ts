@@ -6,7 +6,7 @@ import request from '@/api/uploadRequest.ts'
  */
 
 export const uploadFileChunks = (params: any, onUploadProgressHandler: any): Promise<any> => {
-  return request.post('/uploadChunk', params, {
+  return request.post('/home/uploadChunk', params, {
     headers: {
       'content-type': 'multipart/form-data',
     },
@@ -18,5 +18,13 @@ export const uploadFileChunks = (params: any, onUploadProgressHandler: any): Pro
  * @description: merge chunks
  */
 export const mergeChunks = (params: { fileName: any; fileHash: any; chunkSize: number }): Promise<any> => {
-  return request.post('/mergeChunks', params)
+  return request.post('/home/mergeChunks', params)
+}
+
+/**
+ * @description: download file
+ */
+
+export const downloadSample = () => {
+  return request.get('/downloads/sampleDownload')
 }
