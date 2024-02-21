@@ -9,6 +9,7 @@ import axios from 'axios'
  */
 const HttpClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
+  timeout: 10000,
 })
 
 /**

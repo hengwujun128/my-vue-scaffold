@@ -28,3 +28,10 @@ export const mergeChunks = (params: { fileName: any; fileHash: any; chunkSize: n
 export const downloadSample = () => {
   return request.get('/downloads/sampleDownload')
 }
+
+//
+export const downloadByStream = () => {
+  return request.get('/downloads/downloadByStream', {
+    responseType: 'blob', //arraybuffer | blob
+  })
+}

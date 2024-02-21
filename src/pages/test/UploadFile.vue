@@ -52,9 +52,26 @@
 
   const downloadHandler = (e: Event) => {
     console.log('-------downloadHandler-------', e)
+    // 直接通过浏览器打开下载
     // window.open('http://localhost:3000/downloads/sampleDownload')
+    // 通过
     downloadByStream().then((res) => {
       console.log('-------downloadHandler-------', res)
+      let fileName = res.headers['content-disposition'].split(';')[1].split('filename=')[1]
+      const blob = res.data
+      if ('download' in document.createElement('a')) {
+        // 非IE下载
+        const elink = document.createElement('a')
+        elink.download = fileName
+        elink.style.display = 'none'
+        elink.href = window.URL.createObjectURL(blob)
+        document.body.appendChild(elink)
+        elink.click()
+        URL.revokeObjectURL(elink.href) // 释放URL对象
+        document.body.removeChild(elink)
+      } else {
+        // IE10+ 下载
+      }
     })
   }
 </script>
