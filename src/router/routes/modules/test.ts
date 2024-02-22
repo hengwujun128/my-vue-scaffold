@@ -3,7 +3,7 @@
 const test = {
   path: '/test',
   name: 'Test',
-  component: '',
+  component: '', // 需要一个布局组件
   redirect: '/test/upload',
   meta: {},
   children: [

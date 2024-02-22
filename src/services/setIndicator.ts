@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
-import { useAppStore } from '@/store/app.ts'
+// import { Store } from 'pinia'
 
-const setIndicator = (requestInstance: AxiosInstance) => {
+const setIndicator = (requestInstance: AxiosInstance, useAppStore: any) => {
   const store = useAppStore()
   let pendingCounter = 0
 
@@ -16,6 +16,8 @@ const setIndicator = (requestInstance: AxiosInstance) => {
       store.hide()
     }
   }
+  // remove it lately
+
   const subtract = () => {
     pendingCounter--
   }

@@ -1,4 +1,5 @@
 // import type { AppRouteModule } from '@/router/types'
+
 import GreeHome from '@/pages/home/greeHome.vue'
 
 const directives = {

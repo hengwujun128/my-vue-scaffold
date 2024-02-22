@@ -28,6 +28,7 @@ async function bootstrap() {
   // setupRouterGuard(router)
 
   setupGlobDirectives(app)
+
   app.mount('#app')
 }
 bootstrap()

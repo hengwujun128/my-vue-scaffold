@@ -11,10 +11,11 @@
         @open-change="onOpenChange"
       ></a-menu>
     </div>
-    <!-- 子路由出口 -->
+    <!-- children routes entrance -->
     <router-view v-slot="{ Component, route }">
       <Transition name="fade" mode="out-in">
-        <div :key="route.name" class="right">
+        <!-- use fullPath to replace name -->
+        <div :key="route.fullPath" class="right">
           <component :is="Component" />
         </div>
       </Transition>

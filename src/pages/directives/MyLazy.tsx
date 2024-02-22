@@ -56,7 +56,7 @@ export default defineComponent({
       return (
         <>
           <div class="wrapper">
-            {images.value.map((item: { id: number; urls: { small_s3: any } }, index: any) => {
+            {images.value.map((item: { id: number; urls: { small_s3: any } }, index: number) => {
               return (
                 <div class={'images-item'} key={item.id}>
                   <div class={'images-card'}>

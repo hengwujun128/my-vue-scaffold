@@ -1,12 +1,14 @@
 // api.ts file
 import axios from 'axios'
+import { useAppStore } from '@/store/app.ts'
+
 import setIndicator from './setIndicator.ts'
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 })
 
-const indicator = setIndicator(API)
+const indicator = setIndicator(API, useAppStore)
 
 // interceptors
 API.interceptors.request.use(

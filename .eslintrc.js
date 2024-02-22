@@ -37,7 +37,9 @@ module.exports = {
     ],
     '@typescript-eslint/ban-ts-comment': 'off', //允许使用@ts-ignore
     '@typescript-eslint/no-non-null-assertion': 'off', //允许使用非空断言
-    '@typescript-eslint/no-unused-vars': 'off', // ts 文件允许 console
+    // TIPS: 关闭错误 与 打开错误但是修改错误等级
+    '@typescript-eslint/no-unused-vars': 'off', // 关闭
+    // '@typescript-eslint/no-unused-vars': ['warn'], // 修改等级
     '@typescript-eslint/no-var-requires': 'off',
 
     'no-console': [

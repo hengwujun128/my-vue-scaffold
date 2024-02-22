@@ -23,19 +23,19 @@ const getObserver = (el: any, id: number) => {
 }
 
 // custom directive
-const vLazy: ObjectDirective<HTMLElement, boolean> = {
+const vLazy: ObjectDirective<HTMLElement, number> = {
   //Directive Hooks
 
   // called right before the element is inserted into the DOM.
   beforeMount(el, binding: DirectiveBinding) {
     callNumber++
-    // 先把realSrc 赋值给data-src; 把 src 设置默认图片替换
+    // 先把realSrc 赋值给data-src; 把 src 设置默认图片
     el.setAttribute('data-src', binding.value.src)
     el.setAttribute('src', defaultLogo)
   },
   // called when the bound element's parent component
   // and all its children are mounted.
-  mounted(el, binding) {
+  mounted(el, binding: DirectiveBinding) {
     console.log('directive called number:', callNumber)
     if (IntersectionObserver) {
       const IOInstance = getObserver(el, binding.value.id)
