@@ -11,7 +11,7 @@ import { mergeChunks, uploadFileChunks } from '@/api/modules/upload'
  *  注意：这样做，所有请求也是并发的，都处于pending 状态， 响应的结果是一个个处理的
  */
 
-export const uploadRecursively = (data, callback) => {
+export const uploadRecursively = (data: Array<any>, callback: (...args: any) => unknown) => {
   if (data.length < 1) {
     console.log('可以合并请求了---')
     callback()
@@ -95,8 +95,8 @@ export const useUploadProcessor = () => {
       const sparkBuffer = new SparkMD5.ArrayBuffer()
       const fileReader = new FileReader()
 
-      fileReader.onload = (e) => {
-        sparkBuffer.append(e.target.result)
+      fileReader.onload = (e: ProgressEvent<FileReader>) => {
+        sparkBuffer.append((e.target as any).result)
         chunkNumber++
         if (chunkNumber < chunks) {
           loadNextChunk()

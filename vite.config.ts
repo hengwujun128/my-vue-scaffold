@@ -8,13 +8,12 @@ import { defineConfig, loadEnv } from 'vite'
 import type { UserConfig, ConfigEnv } from 'vite'
 
 import pkg from './package.json'
-//
-import vue from '@vitejs/plugin-vue'
-//
-import vueJsx from '@vitejs/plugin-vue-jsx' // jsx,tsx 语法插件
-//
-import UnoCSS from 'unocss/vite'
 
+// type checking for browser
+import checker from 'vite-plugin-checker'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx' // jsx,tsx 语法插件
+import UnoCSS from 'unocss/vite'
 import dayjs from 'dayjs'
 
 import path from 'path' //这个path用到了上面安装的@types/node
@@ -31,7 +30,7 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
 
   const root = process.cwd()
   const env = loadEnv(mode, root) // root 和 envDir 选项会影响加载行为
-  console.log({ root, env })
+  console.log({ root, env }) // 获取环境变量
   return {
     root,
     define: {
@@ -39,6 +38,11 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     plugins: [
+      // type checking
+      checker({
+        typescript: true,
+        vueTsc: true,
+      }),
       vue(),
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx

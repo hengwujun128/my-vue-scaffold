@@ -1,25 +1,27 @@
 <template>
-  <div class="layout layout-directive">
-    <div class="left">
-      <a-menu
-        v-model:selectedKeys="state.selectedKeys"
-        style="width: 100%"
-        mode="inline"
-        :open-keys="state.openKeys"
-        :items="routesData"
-        @click="clickHandler"
-        @open-change="onOpenChange"
-      ></a-menu>
+  <div class="layout">
+    <div class="layout-home">
+      <div class="left">
+        <a-menu
+          v-model:selectedKeys="state.selectedKeys"
+          style="width: 100%"
+          mode="inline"
+          :open-keys="state.openKeys"
+          :items="routesData"
+          @click="clickHandler"
+          @open-change="onOpenChange"
+        ></a-menu>
+      </div>
+      <!-- children routes entrance -->
+      <router-view v-slot="{ Component, route }">
+        <Transition name="fade" mode="out-in">
+          <!-- use fullPath to replace name -->
+          <div :key="route.fullPath" class="right">
+            <component :is="Component" />
+          </div>
+        </Transition>
+      </router-view>
     </div>
-    <!-- children routes entrance -->
-    <router-view v-slot="{ Component, route }">
-      <Transition name="fade" mode="out-in">
-        <!-- use fullPath to replace name -->
-        <div :key="route.fullPath" class="right">
-          <component :is="Component" />
-        </div>
-      </Transition>
-    </router-view>
   </div>
 </template>
 
@@ -34,6 +36,7 @@
 
   const router = useRouter()
 
+  //
   function getItem(
     label: VueElement | string,
     key: string,
@@ -73,10 +76,12 @@
     ]),
   ])
 
+  // NOTE: 根据路由配置设置导航菜单(recursively )
   const getItems = (data: any[], level = 0): any[] => {
     let items2: ItemType[] = []
     data.map((item) => {
-      const res = getItem(item.name, item.name, level === 0 ? () => h(AppstoreOutlined) : '')
+      // 第三个参数是 icon,根据 level 来决定
+      const res = getItem(item.meta.title, item.name, level === 0 ? () => h(MailOutlined) : '')
       items2.push(res)
       if (item.children) {
         level += 1
@@ -111,12 +116,19 @@
 
 <style lang="scss" scoped>
   .layout {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0px;
+    text-align: center;
+    background-color: #fff;
+  }
+  .layout-home {
     display: grid;
     // grid-template-columns: repeat(2, minmax(min(200px, 100%), 1fr));
     grid-template-columns: 240px 1fr;
     height: 100vh;
     .left {
-      background-color: antiquewhite;
+      // background-color: antiquewhite;
     }
   }
 </style>

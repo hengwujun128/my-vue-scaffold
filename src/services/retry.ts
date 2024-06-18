@@ -68,7 +68,7 @@ declare module 'axios' {
 
 export const namespace = 'axios-retry'
 
-export function isNetworkError(error) {
+export function isNetworkError(error: any) {
   const CODE_EXCLUDE_LIST = ['ERR_CANCELED', 'ECONNABORTED']
   if (error.response) {
     return false
@@ -230,7 +230,7 @@ const axiosRetry: AxiosRetry = (axiosInstance, defaultOptions) => {
         config.timeout = timeout
       }
       //
-      config.transformRequest = [(data) => data]
+      config.transformRequest = [(data: any) => data]
       // NOTE: retry 重试
 
       await onRetry(currentState.retryCount, error, config)

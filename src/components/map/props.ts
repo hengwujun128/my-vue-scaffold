@@ -45,6 +45,7 @@ export const ItemProps = {
   },
   tag: {
     type: String,
+    // type: VueElement,
   },
   component: {
     type: [Object, Function],

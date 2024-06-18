@@ -13,7 +13,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   meta: RouteMeta
   component?: Component | string
   components?: Component
-  children?: AppRouteRecordRaw[]
+  children?: AppRouteRecordRaw[] // 递归引用
   // props?: Recordable
   fullPath?: string
 }

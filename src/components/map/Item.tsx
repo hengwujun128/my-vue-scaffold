@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, defineProps } from 'vue'
 import { ItemProps } from './props'
 
 export const Item = defineComponent({
@@ -8,11 +8,15 @@ export const Item = defineComponent({
     const rootRef = ref<HTMLElement | null>(null)
 
     return () => {
-      const { component: Comp, index, uniqueKey, source, scopedSlots = {}, tag: Tag } = props
+      const { index, uniqueKey, source, scopedSlots = {} } = props
       const mergedProps = {
         source,
         index,
       }
+
+      // 强制类型转换
+      const Tag = props.tag as any
+      const Comp = props.component as any
 
       return (
         <Tag key={uniqueKey} ref={rootRef} data-index={index}>
