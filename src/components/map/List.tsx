@@ -11,7 +11,7 @@ export default defineComponent({
       // const slots = []
       const { dataSources, dataKey, dataComponent: itemComponent, itemTag } = props
       return dataSources.map((item: any, index) => {
-        const uniqueKey = typeof dataKey === 'function' ? dataKey(item) : item[dataKey]
+        const uniqueKey = typeof dataKey === 'function' ? dataKey(item) : item[dataKey as string]
 
         return <Item index={index} tag={itemTag} uniqueKey={uniqueKey} source={item} component={itemComponent}></Item>
       })
