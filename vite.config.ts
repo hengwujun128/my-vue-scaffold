@@ -26,11 +26,11 @@ const __APP_INFO__ = {
 }
 
 export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig => {
-  console.log({ command, mode, ssrBuild })
+  console.log('获取 mode--', { command, mode, ssrBuild })
 
   const root = process.cwd()
   const env = loadEnv(mode, root) // root 和 envDir 选项会影响加载行为
-  console.log({ root, env }) // 获取环境变量
+  console.log('获取 env--', { root, env }) // 获取环境变量
   return {
     root,
     define: {

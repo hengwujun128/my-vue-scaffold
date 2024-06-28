@@ -28,7 +28,7 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 'off', // 禁用vue文件强制多个单词命名
     'vue/no-setup-props-destructure': 'off',
-    '@typescript-eslint/no-explicit-any': ['off'], //允许使用any
+    '@typescript-eslint/no-explicit-any': ['off'], //允许使用any warn,error
     '@typescript-eslint/no-this-alias': [
       'error',
       {
