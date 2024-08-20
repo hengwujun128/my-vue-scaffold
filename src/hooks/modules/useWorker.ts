@@ -6,10 +6,15 @@
 
 import { ref, onUnmounted } from 'vue'
 
-// 创建一个Web Worker实例
-const createWorker = (workerScript) => {
-  const blob = new Blob(['(' + workerScript.toString() + ')()'], { type: 'text/javascript' })
-  const url = window.URL.createObjectURL(blob)
+/**
+ * Create a Web Worker instance
+ *
+ * @param {Function} workerScript - The worker script to be executed
+ * @returns {Worker} The created Web Worker instance
+ */
+const createWorker = (workerScript: () => any): Worker => {
+  const blob = new Blob([`(${workerScript.toString()})()`], { type: 'text/javascript' })
+  const url = URL.createObjectURL(blob)
 
   return new Worker(url)
 }
@@ -18,11 +23,11 @@ const createWorker = (workerScript) => {
  * @param {Function} workerScript - description
  *
  */
-const useWebWorker = (workerScript) => {
+const useWebWorker = (workerScript: string) => {
   // const worker = ref(createWorker(workerScript))
   const worker = ref(new Worker(new URL(workerScript, import.meta.url)))
-  const message = ref(null)
-  const error = ref(null)
+  const message: null | any = ref(null)
+  const error: null | any = ref(null)
 
   worker.value.onmessage = (e) => {
     message.value = e.data
@@ -34,7 +39,7 @@ const useWebWorker = (workerScript) => {
     error.value = e
   }
 
-  const postMessage = (msg) => worker.value.postMessage(msg)
+  const postMessage = (msg: string) => worker.value.postMessage(msg)
 
   onUnmounted(() => worker.value.terminate())
 

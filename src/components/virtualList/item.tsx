@@ -53,7 +53,7 @@ export const Item = defineComponent({
 
     return () => {
       // 在 setup 的渲染函数中 解构 props, 不是 setup 中进行解构
-      const { tag: Tag, component: Comp, extraProps = {}, index, source, scopedSlots = {}, uniqueKey } = props
+      const { tag, component, extraProps = {}, index, source, scopedSlots = {}, uniqueKey } = props
       const mergedProps = {
         ...extraProps,
         source,
@@ -61,6 +61,8 @@ export const Item = defineComponent({
       }
       // 在 render 函数中返回 tsx
       // 如何在 render函数中 tsx 中使用作用越插槽: scopedSlots
+      const Tag = tag as any
+      const Comp = component as any
       return (
         <Tag key={uniqueKey} ref={rootRef} data-index={index}>
           <Comp {...mergedProps} scopedSlots={scopedSlots} />
@@ -81,8 +83,8 @@ export const Slot = defineComponent({
     useResizeChange(props, rootRef, emit)
 
     return () => {
-      const { tag: Tag, uniqueKey } = props
-
+      const { tag, uniqueKey } = props
+      const Tag = tag as any
       return (
         <Tag ref={rootRef} key={uniqueKey}>
           {slots.default?.()}

@@ -1,5 +1,9 @@
-import type { DirectiveBinding, ObjectDirective, App } from 'vue'
+import type { DirectiveBinding, ObjectDirective, App, DirectiveHook } from 'vue'
 import defaultLogo from '../assets/vue.svg'
+
+interface IoIoElement extends HTMLElement {
+  io: IntersectionObserver
+}
 
 let callNumber = 0
 
@@ -44,7 +48,7 @@ const vLazy: ObjectDirective<HTMLElement, number> = {
   },
 
   // called when the parent component is unmounted
-  unmounted(el) {
+  unmounted(el: any) {
     IntersectionObserver && el.$io.disconnect()
   },
 }

@@ -55,7 +55,7 @@
 
   // FIXME: Property 'images' does not exist on type 'AxiosResponse<any, any>'.ts(2339)
   const getImageList = async () => {
-    const res = await getImages()
+    const res = (await getImages()) as any
     if (res.images) {
       images.value = [...images.value, ...res.images]
     }
