@@ -59,6 +59,10 @@ const test = {
         hideMenu: true,
       },
     },
+    {
+      path: 'modal',
+      component: () => import('@/pages/modal/index.vue'),
+    },
   ],
 }
 

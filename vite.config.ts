@@ -84,5 +84,12 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
         },
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // entryFileNames: 'assets/[name].js',
+        },
+      },
+    },
   }
 })
