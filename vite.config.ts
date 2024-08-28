@@ -16,6 +16,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx' // jsx,tsx 语法插件
 import UnoCSS from 'unocss/vite'
 import dayjs from 'dayjs'
 
+import { configSvgIconsPlugin, createSvgIconsByUnplugin } from './vite-config/plugins/svgSprite'
+
 import path from 'path' //这个path用到了上面安装的@types/node
 // https://vitejs.dev/config/
 
@@ -38,6 +40,8 @@ export default defineConfig(({ command, mode, ssrBuild }: ConfigEnv): UserConfig
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     plugins: [
+      configSvgIconsPlugin({ isBuild: command === 'build' }),
+      createSvgIconsByUnplugin(),
       // type checking
       checker({
         typescript: true,

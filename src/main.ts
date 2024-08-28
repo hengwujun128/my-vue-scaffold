@@ -11,6 +11,8 @@ import 'ant-design-vue/dist/reset.css'
 // have effect to ant-design-vue
 import './style.css'
 
+import 'virtual:svg-icons-register'
+
 import App from './App.vue'
 //
 import { setupRouter } from '@/router/index.ts'

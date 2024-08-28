@@ -1,4 +1,5 @@
 /**
+ * Web Workers 运行于浏览器的一个隔离线程之中。因此，他们所执行的代码必须被包含在一个单独的文件之中。请谨记这一特性
  * const worker = new Worker("<worker_file>.js");
  * const worker = new SharedWorker("<worker_file>.js");
  * const worker = new Worker(new URL(url,import.meta.url))
@@ -26,8 +27,8 @@ const createWorker = (workerScript: () => any): Worker => {
 const useWebWorker = (workerScript: string) => {
   // const worker = ref(createWorker(workerScript))
   const worker = ref(new Worker(new URL(workerScript, import.meta.url)))
-  const message: null | any = ref(null)
-  const error: null | any = ref(null)
+  const message = ref<null | string>(null)
+  const error = ref<null | ErrorEvent>(null)
 
   worker.value.onmessage = (e) => {
     message.value = e.data
